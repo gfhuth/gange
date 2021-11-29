@@ -1,0 +1,12 @@
+##############################
+## Java
+##############################
+.mtj.tmp/
+*.class
+*.jar
+./doc_gui
+*.war
+*.ear
+*.nar
+hs_err_pid*
+docker-server
