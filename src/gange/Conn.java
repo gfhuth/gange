@@ -29,8 +29,11 @@ public class Conn {
 		if(this.connection != null){
 			try{
 				this.connection.close();
-			} catch (SQLException e){/*we can ignore this exception*/}
+			} catch (SQLException e){/*we can ignore this exception*/
 				System.err.println("failed");
+				e.printStackTrace(System.err);
+			}
+				
 		}
 
 	}
