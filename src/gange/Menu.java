@@ -16,7 +16,7 @@ public class Menu {
         //if doesnt exist ask again to user to put a valid email
         while(verifyEmail(email)){
             System.out.print("S'il vous plait rentrez une adresse mail valide:"); 
-            String email = scan.next();
+            email = scan.next();
         }
         System.out.print("password: "); 
         String password = scan.next();        
@@ -25,14 +25,14 @@ public class Menu {
 
     }
 
-    public boolean verifyEmail(String email){
+    public static boolean verifyEmail(String email){
         try{
             //On établit la connection avec la BDD
             Conn conn= new Conn();
             //Creation de la requete
-            PreparedStatement verifyEmail = conn.connection.prepareStatement("select * from  client where email = ?");
+            
             verifyEmail.setString(1, email); 
-            ResultSet rset = stmt.executeQuery();
+            conn.exec("select * from  client where email = ?");
             // Fermeture 
             rset.close();
             verifyEmail.close();
