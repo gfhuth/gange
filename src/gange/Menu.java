@@ -3,7 +3,11 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Menu {
-
+	
+	public static void clearScreen() {  
+	    System.out.print("\033[H\033[2J");  
+	    System.out.flush();  
+	}  
     public void bienvenu(){
         System.out.println("Bienvenu dans Gange vos enchères de confiance");
     }
@@ -17,6 +21,7 @@ public class Menu {
         while(connection.verifyEmail(email)){
             System.out.print("S'il vous plait rentrez une adresse mail valide:"); 
             email = scan.next();
+            
         }
         System.out.print("password: ");
         String password = scan.next();

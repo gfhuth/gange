@@ -1,7 +1,7 @@
 package gange;
 
 import java.sql.*;
-import java.util.LinkedList;
+//import java.util.LinkedList;
 
 public class Conn {
 
@@ -20,6 +20,7 @@ public class Conn {
 			System.out.print("Connecting to the database... "); 
 			this.connection = DriverManager.getConnection(CONN_URL, user, password);
 			System.out.println("connected");
+
 		}catch (SQLException e){
 			System.err.println("Connection failed");
 			e.printStackTrace(System.err);
@@ -78,11 +79,10 @@ public class Conn {
 			PreparedStatement pstmt = this.connection.prepareStatement(
 					"select email from  client where email = ?");
 			pstmt.setString(1, email); // 2eme parametre
-			pstmt.executeQuery();
-			
-			//email is not verified
-			
-			return false;
+			ResultSet rset = pstmt.executeQuery();
+			boolean oi ;
+			oi = rset.next();
+			return !oi;
 		}catch(Exception e){
 			System.err.println("Cette adresse mail n'existe pas");
 			return true;
