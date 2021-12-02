@@ -1,12 +1,13 @@
 package gange;
 
 import java.sql.*;
+import java.util.LinkedList;
 
 public class Conn {
 
 	static final String CONN_URL = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
-	static final String user = "blockmel"; // A remplacer pour votre compte, sinon genere une exception
-	static final String password = "blockmel";
+	static final String user = "katofy"; // A remplacer pour votre compte, sinon genere une exception
+	static final String password = "katofy";
 	public Connection connection;
 
 	public Conn() {
@@ -33,7 +34,7 @@ public class Conn {
 				System.err.println("failed");
 				e.printStackTrace(System.err);
 			}
-				
+
 		}
 
 	}
@@ -55,21 +56,37 @@ public class Conn {
 		return null;
 	}
 
-	//    public ResultSet execSetString(String s, list<String>) {
-	//    	try {
-	//			PreparedStatement stmt = this.connection.prepareStatement(s);
-	//			for(int i = 0; i<len(list); i++){
-	//    			stmt.setString(2, list[i]); // 2eme parametre
-	//			}
-	//			ResultSet rset = stmt.executeQuery();
-	//			rset.close();
-	//
-	//		} catch (SQLException e) {
-	//			System.err.println("failed");
-	//			e.printStackTrace();
-	//		}
-	//    	
-	//    	
-	//    }
+//	public ResultSet execSetString(String s, String args) {
+//		try {
+//			PreparedStatement pstmt = this.connection.prepareStatement(s);
+//
+//			//			for(int i = 0; i<len(list); i++){
+//			pstmt.setString(1, args); // 2eme parametre
+//			//			}
+//			ResultSet rset = pstmt.executeQuery();
+//			return rset;
+//
+//		} catch (SQLException e) {
+//			System.err.println("failed");
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+
+	public boolean verifyEmail(String email){
+		try{
+			PreparedStatement pstmt = this.connection.prepareStatement(
+					"select email from  client where email = ?");
+			pstmt.setString(1, email); // 2eme parametre
+			pstmt.executeQuery();
+			
+			//email is not verified
+			
+			return false;
+		}catch(Exception e){
+			System.err.println("Cette adresse mail n'existe pas");
+			return true;
+		}
+	}
 
 }
