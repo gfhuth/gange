@@ -1,6 +1,8 @@
 package gange;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 //import java.util.LinkedList;
 
 public class ConnectionManager {
@@ -57,36 +59,67 @@ public class ConnectionManager {
 		return null;
 	}
 
-//	public ResultSet execSetString(String s, String args) {
-//		try {
-//			PreparedStatement pstmt = this.connection.prepareStatement(s);
-//
-//			//			for(int i = 0; i<len(list); i++){
-//			pstmt.setString(1, args); // 2eme parametre
-//			//			}
-//			ResultSet rset = pstmt.executeQuery();
-//			return rset;
-//
-//		} catch (SQLException e) {
-//			System.err.println("failed");
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
+		public ResultSet execSetString(String s, LinkedList<String> args) {
+			try {
+				PreparedStatement pstmt = this.connection.prepareStatement(s);
+				
+				for(int i = 1; i <= args.size(); i++){
+					pstmt.setString(i, args.get(i-1)); // ieme parametre
+				}
+				
+				return pstmt.executeQuery();
+	
+			} catch (SQLException e) {
+				System.err.println("failed");
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		public ResultSet execSetString(String s, String arg) {
+			try {
+				PreparedStatement pstmt = this.connection.prepareStatement(s);
+					pstmt.setString(1, arg); // 1eme parametre
+				return pstmt.executeQuery();
+				
+			} catch (SQLException e) {
+				System.err.println("failed");
+				e.printStackTrace();
+			}
+			return null;
+		}
 
-	// public boolean verifyEmail(String email){
-	// 	try{
-	// 		PreparedStatement pstmt = this.connection.prepareStatement(
-	// 				"select email from  client where email = ?");
-	// 		pstmt.setString(1, email); // 2eme parametre
-	// 		ResultSet rset = pstmt.executeQuery();
-	// 		boolean oi ;
-	// 		oi = rset.next();
-	// 		return !oi;
-	// 	}catch(Exception e){
-	// 		System.err.println("Cette adresse mail n'existe pas");
-	// 		return true;
-	// 	}
-	// }
+	public boolean verifyEmail(String email){
+		try{
+			
+			ResultSet rset = execSetString(
+				"select email from  client where email = ?",
+				email);
 
+			return !rset.next();
+		}catch(Exception e){
+			System.err.println("Cette adresse mail n'existe pas");
+			return true;
+		}
+	}
+
+	public boolean verifyPassword(String email, String password){
+		try{
+			LinkedList<String> credentials = new LinkedList<String>(); 
+			credentials.add(email);
+			credentials.add(password);
+			ResultSet rset = execSetString(
+				"select prenom from client where email = ? and mot_de_passe = ?",
+				credentials);
+			boolean verify = !rset.next();
+			System.out.println("Bienvenu "+rset.getString(1));
+			return verify;
+		}catch(Exception e){
+			System.err.println("Le mot de passe n'est pas correct");
+			return true;
+		}
+	}
+	
+	
+	
 }
