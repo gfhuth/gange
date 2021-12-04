@@ -96,7 +96,11 @@ public class ConnectionManager {
 				"select email from  client where email = ?",
 				email);
 
+<<<<<<< HEAD:src/gange/ConnectionManager.java
 			return rset.next();
+=======
+			return !rset.next();
+>>>>>>> fda134f6f8e018e713c7d25765e12f38454a2792:src/gange/Conn.java
 		}catch(Exception e){
 			return false;
 		}
@@ -110,12 +114,24 @@ public class ConnectionManager {
 			ResultSet rset = execSetString(
 				"select prenom from client where email = ? and mot_de_passe = ?",
 				credentials);
+<<<<<<< HEAD:src/gange/ConnectionManager.java
 			return rset.next();
 		}catch(Exception e){
+=======
+			boolean verify = !rset.next();
+			System.out.println("Bienvenu "+rset.getString(1));
+			return verify;
+		}catch(Exception e){
+			System.err.println("Le mot de passe n'est pas correct");
+>>>>>>> fda134f6f8e018e713c7d25765e12f38454a2792:src/gange/Conn.java
 			return true;
 		}
 	}
 	
 	
 	
+<<<<<<< HEAD:src/gange/ConnectionManager.java
 }
+=======
+}
+>>>>>>> fda134f6f8e018e713c7d25765e12f38454a2792:src/gange/Conn.java
