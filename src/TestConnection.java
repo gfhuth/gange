@@ -5,17 +5,10 @@ public class TestConnection {
 		try {
 			// Enregistrement du driver Oracle
 			ConnectionManager c = new ConnectionManager();
-			// Creation de la requete
-			Statement stmt = c.connection.createStatement();
-			// Execution de la requete
-			ResultSet rset = stmt.executeQuery(STMT);
-			// Affichage du resultat
-			System.out.println("Results:");
-			dumpResultSet(rset);
-			System.out.println();
-			// Fermeture
-			rset.close();
-			stmt.close();
+			Menu m = new Menu();
+			m.clear();
+			m.login(c);
+
 			c.connection.close();
 		} catch (SQLException e) {
 			System.err.println("failed");
