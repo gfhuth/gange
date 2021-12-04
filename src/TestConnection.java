@@ -4,11 +4,18 @@ public class TestConnection {
 	public TestConnection() {
 		try {
 			// Enregistrement du driver Oracle
-			Conn c = new Conn();
-			Menu m = new Menu();
-
-			m.login(c);
-
+			ConnectionManager c = new ConnectionManager();
+			// Creation de la requete
+			Statement stmt = c.connection.createStatement();
+			// Execution de la requete
+			ResultSet rset = stmt.executeQuery(STMT);
+			// Affichage du resultat
+			System.out.println("Results:");
+			dumpResultSet(rset);
+			System.out.println();
+			// Fermeture
+			rset.close();
+			stmt.close();
 			c.connection.close();
 		} catch (SQLException e) {
 			System.err.println("failed");

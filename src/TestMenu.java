@@ -3,8 +3,10 @@ import gange.*;
 public class TestMenu {
 
 	public static void main(String[] args) {
-		System.out.println("hello world");
-		Menu.test;
+		ConnectionManager Connected = new ConnectionManager();
+		Menu menuTesting = new Menu();
+		menuTesting.bienvenu();
+		menuTesting.login(Connected);
 	}
 
 }

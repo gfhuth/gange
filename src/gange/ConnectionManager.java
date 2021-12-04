@@ -3,14 +3,14 @@ package gange;
 import java.sql.*;
 //import java.util.LinkedList;
 
-public class Conn {
+public class ConnectionManager {
 
 	static final String CONN_URL = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
 	static final String user = "katofy"; // A remplacer pour votre compte, sinon genere une exception
 	static final String password = "katofy";
 	public Connection connection;
 
-	public Conn() {
+	public ConnectionManager() {
 		try {
 			// Enregistrement du driver Oracle
 			System.out.print("Loading Oracle driver... "); 
@@ -74,19 +74,19 @@ public class Conn {
 //		return null;
 //	}
 
-	public boolean verifyEmail(String email){
-		try{
-			PreparedStatement pstmt = this.connection.prepareStatement(
-					"select email from  client where email = ?");
-			pstmt.setString(1, email); // 2eme parametre
-			ResultSet rset = pstmt.executeQuery();
-			boolean oi ;
-			oi = rset.next();
-			return !oi;
-		}catch(Exception e){
-			System.err.println("Cette adresse mail n'existe pas");
-			return true;
-		}
-	}
+	// public boolean verifyEmail(String email){
+	// 	try{
+	// 		PreparedStatement pstmt = this.connection.prepareStatement(
+	// 				"select email from  client where email = ?");
+	// 		pstmt.setString(1, email); // 2eme parametre
+	// 		ResultSet rset = pstmt.executeQuery();
+	// 		boolean oi ;
+	// 		oi = rset.next();
+	// 		return !oi;
+	// 	}catch(Exception e){
+	// 		System.err.println("Cette adresse mail n'existe pas");
+	// 		return true;
+	// 	}
+	// }
 
 }
