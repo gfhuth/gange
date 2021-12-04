@@ -11,34 +11,26 @@ public class Menu {
 		gange();
 		header("Bienvenu dans Gange vos enchères de confiance");
 		Scanner scan = new Scanner(System.in);  
-		System.out.print("e-mail: "); 
+		System.out.print("e-mail: ");   
 		String email = scan.next();
 		//verify if email exist
 	    //if doesnt exist ask again to user to put a valid email
-<<<<<<< HEAD
-		System.out.print("password: ");
-		String password = scan.next();
-		while(!c.verifyPassword(email, password)){
-=======
-		while(c.verifyEmail(email)){
-			System.out.print("S'il vous plait rentrez une adresse mail valide:");
-			System.out.println("e-mail: "); 
+		while(!c.verifyEmail(email)){
+			System.out.println("S'il vous plait rentrez une adresse mail valide:");
+			System.out.print("e-mail: "); 
 			email = scan.next();
+			
 		}
 
 		System.out.print("password: ");
 		String password = scan.next();
-		while(c.verifyPassword(email, password)){
->>>>>>> fda134f6f8e018e713c7d25765e12f38454a2792
+		while(!c.verifyPassword(email, password)){
 			System.out.println("S'il vous plait rentrez un autre mot de passe:");
 			System.out.print("password: ");
 			password = scan.next();
 		}
-<<<<<<< HEAD
-		System.out.println("saiu");
-=======
 
->>>>>>> fda134f6f8e018e713c7d25765e12f38454a2792
+		System.out.println("saiu");
 		scan.close();
 		return true;
 	}
@@ -82,9 +74,5 @@ public class Menu {
 
 	public void deletUser(String user) {
 	}
+}
 
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> fda134f6f8e018e713c7d25765e12f38454a2792
