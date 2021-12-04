@@ -3,8 +3,10 @@ import gange.*;
 
 public class main {
 	public static void main(String[] args) {
-
-        
+		ConnectionManager c = new ConnectionManager();
+		Menu m = new Menu();
+		
+		m.login(c);
         
         
 //		switch(expression) {

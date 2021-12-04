@@ -1,9 +1,9 @@
 import java.sql.*;
 public class SimpleQuery {
 	static final String CONN_URL = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
-	static final String USER = "katofy"; // A remplacer pour votre compte
-	static final String PASSWD = "katofy";
-	static final String STMT = "select * from GUESTS";
+	static final String USER = "faccinhg"; // A remplacer pour votre compte
+	static final String PASSWD = "faccinhg";
+	static final String STMT = "select * from emp";
 	public SimpleQuery() {
 		try {
 			// Enregistrement du driver Oracle

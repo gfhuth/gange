@@ -4,9 +4,9 @@ public class TestConnection {
 	public TestConnection() {
 		try {
 			// Enregistrement du driver Oracle
-			Conn c = new Conn();
+			ConnectionManager c = new ConnectionManager();
 			Menu m = new Menu();
-
+			m.clear();
 			m.login(c);
 
 			c.connection.close();
