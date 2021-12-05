@@ -74,5 +74,16 @@ public class Menu {
 
 	public void deletUser(String user) {
 	}
+	
+	public int askSuggestion() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Souhaitez-vous recevoir des suggestions basées sur vos antécédents ?");
+		
+	    System.out.println("\t\t\t     Oui...................[1]");
+	    System.out.println("\t\t\t     Non...................[2]");
+	    System.out.println("\t\t\t     Quitter...............[0]");
+	    
+	    return scan.next();
+	}
 }
 
