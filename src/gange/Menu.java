@@ -4,35 +4,62 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Menu {
-	
-	public boolean login(ConnectionManager c){
+	Scanner scan = new Scanner(System.in);
+	public int login(ConnectionManager c){
 
 		clear();
 		gange();
-		header("Bienvenu dans Gange vos enchères de confiance");
-		Scanner scan = new Scanner(System.in);  
+		header("Bienvenu dans Gange vos enchères de confiance"); 
 		System.out.print("e-mail: ");   
 		String email = scan.next();
 		//verify if email exist
-	    //if doesnt exist ask again to user to put a valid email
+		//if doesnt exist ask again to user to put a valid email
+		int errorCount = 0;
+		int quitFlag = 0 ;
 		while(!c.verifyEmail(email)){
+			if (errorCount >= 2){
+				System.out.println("Voulez-vous fermer l'application ?");
+				System.out.println("\t\t\t     Continuer.............[1]");
+				System.out.println("\t\t\t     Fermer................[2]");
+				if (scan.nextInt() == 2) {
+					quitFlag = 1;
+					break;
+				}
+			}
+			errorCount++;
 			System.out.println("S'il vous plait rentrez une adresse mail valide:");
 			System.out.print("e-mail: "); 
 			email = scan.next();
-			
-		}
 
-		System.out.print("password: ");
-		String password = scan.next();
-		while(!c.verifyPassword(email, password)){
-			System.out.println("S'il vous plait rentrez un autre mot de passe:");
+		}
+		if (quitFlag == 0) {
 			System.out.print("password: ");
-			password = scan.next();
+			String password = scan.next();
+			errorCount = 0;
+			while(!c.verifyPassword(email, password)){
+				if (errorCount >= 2){
+					System.out.println("Voulez-vous fermer l'application ?");
+					System.out.println("\t\t\t     Continuer.............[1]");
+					System.out.println("\t\t\t     Fermer................[2]");
+					if (scan.nextInt() == 2) {
+						quitFlag = 1;
+						break;
+					}
+				}
+				errorCount++;
+				System.out.println("S'il vous plait rentrez un autre mot de passe:");
+				System.out.print("password: ");
+				password = scan.next();
+			}
 		}
+		else {}
+//		scan.close();
+		
+		return 1 - quitFlag; //	invert quitFlag
+	}
 
-		System.out.println("saiu");
-		scan.close();
-		return true;
+	public void fermerApp() {
+
 	}
 
 	public void clear() {
@@ -74,16 +101,27 @@ public class Menu {
 
 	public void deletUser(String user) {
 	}
-	
+
 	public int askSuggestion() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Souhaitez-vous recevoir des suggestions basées sur vos antécédents ?");
+		int option;
 		
-	    System.out.println("\t\t\t     Oui...................[1]");
-	    System.out.println("\t\t\t     Non...................[2]");
-	    System.out.println("\t\t\t     Quitter...............[0]");
-	    
-	    return scan.next();
+		
+//		Scanner scan = new Scanner(System.in);  
+		do {
+			clear();
+			gange();
+			header("Bienvenu dans Gange vos enchères de confiance"); 
+			System.out.println();
+			System.out.println("Souhaitez-vous recevoir des suggestions basées sur vos antécédents ?");
+			System.out.println("\t\t\t     Oui...................[1]");
+			System.out.println("\t\t\t     Non...................[2]");
+			System.out.println("\t\t\t     Quitter...............[0]");
+			System.out.println();
+			option = scan.nextInt();
+		}while(option < 0 || option > 3);
+//		scan.close();
+		return option;
 	}
 }
+//	guilherme.faccin-huth@grenoble-inp.org
 

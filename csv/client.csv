@@ -1,6 +1,6 @@
-email,nom,prenom,adresse,mdp
-thais.Bourret@grenoble-inp.org,Bourret ,Thais,"681, Rue de la Passerelle, Saint Martin Dheres",123456
-guilherme.Faccin-Huth@grenoble-inp.org,Faccin huth,Guilherme,"681, Rue de la Passerelle, Saint Martin Dheres",qwerty
-lucas.Block-Medin@grenoble-inp.org,Block Medin,Lucas,"681, Rue de la Passerelle, Saint Martin Dheres",password
-Yanis.Bouhjoura@grenoble-inp.org,Bouhjoura,Yanis,"681, Rue de la Passerelle, Saint Martin Dheres",p455w0rd
-yassine.Katof@grenoble-inp.org,Katof,Yassine,"681, Rue de la Passerelle, Saint Martin Dheres",312654
+EMAIL,ID_U,NOM,PRENOM,ADRESSE,MOT_DE_PASSE
+thais.Bourret@grenoble-inp.org,1,Bourret ,Thais,"681, Rue de la Passerelle, Saint Martin Dheres",123456
+guilherme.Faccin-Huth@grenoble-inp.org,2,Faccin huth,Guilherme,"681, Rue de la Passerelle, Saint Martin Dheres",qwerty
+lucas.Block-Medin@grenoble-inp.org,3,Block Medin,Lucas,"681, Rue de la Passerelle, Saint Martin Dheres",password
+Yanis.Bouhjoura@grenoble-inp.org,4,Bouhjoura,Yanis,"681, Rue de la Passerelle, Saint Martin Dheres",p455w0rd
+yassine.Katof@grenoble-inp.org,5,Katof,Yassine,"681, Rue de la Passerelle, Saint Martin Dheres",312654
