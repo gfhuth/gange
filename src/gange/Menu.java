@@ -3,10 +3,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.LinkedList;
 
 public class Menu {
-	Scanner scan = new Scanner(System.in);
 	ConnectionManager conn;
 	public Menu(ConnectionManager conn) {
 		this.conn = conn;
@@ -14,6 +12,7 @@ public class Menu {
 
 	
 	public int login(){
+		Scanner scan = new Scanner(System.in);
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
 		System.out.print("e-mail: ");   
 		String email = scan.next();
@@ -58,7 +57,7 @@ public class Menu {
 		}
 		else {}
 		//		scan.close();
-
+		scan.close();
 		return 1 - quitFlag; //	invert quitFlag
 	}
 
@@ -114,6 +113,7 @@ public class Menu {
 	 * @param email
 	 */
 	public void eliminerClient(String email) {
+		Scanner scan = new Scanner(System.in);
 		System.out.print("Bonjour, êtes vous sur de vouloir éliminer votre compte? [oui/non]");   
 		String confirmation = scan.nextLine();
 		System.out.println(confirmation);
@@ -141,28 +141,23 @@ public class Menu {
 	 */
 	public void creationCompte(){
 		LinkedList<String> coord = new LinkedList<String>();
-
+		Scanner scan = new Scanner(System.in);
 		//On recupère les coords
 		System.out.print("On va procéder à la création d'un compte veuillez répondre aux questions suivantes\n");
 		System.out.println("Email:");
 		String email=scan.nextLine();
-		System.out.println(email);
 		coord.add(email);
 		System.out.println("Nom:");
 		String nom=scan.nextLine();
-		System.out.println(nom);
 		coord.add(nom);
 		System.out.println("Prenom:");
 		String prenom=scan.nextLine();
-		System.out.println(prenom);
 		coord.add(prenom);
 		System.out.println("Adresse:");
 		String adresse=scan.nextLine();
-		System.out.println(adresse);
 		coord.add(adresse);
 		System.out.println("Mot de passe:");
 		String motDePasse=scan.nextLine();
-		System.out.println(motDePasse);
 		coord.add(motDePasse);
 
 		//On execute la demande de création
@@ -188,6 +183,7 @@ public class Menu {
 	}
 
 	public int askSuggestion() {
+		Scanner scan = new Scanner(System.in);
 		int option;
 		do {
 			
@@ -199,11 +195,14 @@ public class Menu {
 			System.out.println();
 			option = scan.nextInt();
 		}while(option < 0 || option > 3);
+		scan.close();
 		return option;
 	}
 
 	public int listProducts(String s){
+		Scanner scan = new Scanner(System.in);
 		ResultSet rset = conn.exec(s);
+		int option;
 		gange("votre meilleur choix");
 		ResultSetMetaData rsetmd;
 		try {
@@ -229,20 +228,25 @@ public class Menu {
 			header("Quel produit vous intéresse?  Ou ");
 			System.out.print("password: ");
 		} catch (SQLException e) {e.printStackTrace();}
-		
-		return scan.nextInt();
+		option = scan.nextInt();
+		scan.close();
+		return option;
 	}
 	
 	public int listCategories() {
-		LinkedList<String> cat = new LikedList<String>();
+		int catNum;
+		Scanner scan = new Scanner(System.in);
+		LinkedList<String> cat = new LinkedList<String>();
 		ResultSet rset = conn.exec("SELECT NOM_CAT FROM CATEGORIE");
 		gange("votre meilleur choix");//Choisissez une catégorie
 		ResultSetMetaData rsetmd = rset.getMetaData();
 		System.out.print("\t\t\t\t");
 		System.out.print(rsetmd.getColumnName(1));
 		header("Choisissez votre produit");
+		catNum = scan.nextInt();
+		scan.close();
+		return catNum;
 	}
 
 }
 //	guilherme.faccin-huth@grenoble-inp.org
-
