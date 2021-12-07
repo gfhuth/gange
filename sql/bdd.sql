@@ -40,6 +40,7 @@ valeur          varchar(255) NOT NULL,
 PRIMARY KEY (Caracteristique)
 );
 
+-- faute d'orthographe dans datee car sinon erreur date ne peut pas être utilisé comme nom de colonne !
 CREATE TABLE OFFRE
 (
 id_p          REFERENCES PRODUIT(id_p),
