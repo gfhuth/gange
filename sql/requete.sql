@@ -1,5 +1,5 @@
  --Affiche le nom de la catégorie et le nombre d'offre qui ont été faites dans cette catégorie par ordre decroissant
- 
+ --(prend aussi compte de l'ordre alphabétique)
  
 SELECT nom_cat, COUNT(nom_cat) as nb
 FROM PRODUIT
@@ -9,7 +9,7 @@ ORDER BY nb DESC, nom_cat;
 
 
 --Affiche combien d'offre l'utilsiateur numero 1 a effectué dans toutes les catégeries par ordre décroissant 
---(prend aussi compte de l'ordre alphabétique)
+--(prend aussi compte de l'ordre alphabétique si jamais des catégories ont le même nombre d'offres.)
  
 
 SELECT id_u, nom_cat, COUNT(nom_cat) as nb
