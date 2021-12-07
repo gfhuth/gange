@@ -1,10 +1,10 @@
-CREATE TABLE Utilisateur
+CREATE TABLE UTILISATEUR
 (
 id_u INT NOT NULL,
 PRIMARY KEY(id_u)
 );
 
-CREATE TABLE Client
+CREATE TABLE CLIENT
 (
 email	       varchar(255) NOT NULL,
 id_u	       REFERENCES UTILISATEUR(id_u),
@@ -43,12 +43,12 @@ PRIMARY KEY (Caracteristique)
 CREATE TABLE OFFRE
 (
 id_p          REFERENCES PRODUIT(id_p),
-datee         varchar(255) NOT NULL,
+date         varchar(255) NOT NULL,
 heure         varchar(255) NOT NULL,
 id_u          REFERENCES UTILISATEUR(id_u),
 prix_proposé  FLOAT NOT NULL,
 num_offre     INT NOT NULL,
-PRIMARY KEY(id_p, datee, heure),
+PRIMARY KEY(id_p, date, heure),
 CONSTRAINT   prix_proposé  CHECK   (prix_proposé > 0),
 CONSTRAINT   num_offre     CHECK   (num_offre < 6)
 );
