@@ -48,7 +48,7 @@ heure         varchar(255) NOT NULL,
 id_u          REFERENCES UTILISATEUR(id_u),
 prix_proposé  FLOAT NOT NULL,
 num_offre     INT NOT NULL,
-PRIMARY KEY(datee, heure),
+PRIMARY KEY(id_p, datee, heure),
 CONSTRAINT   prix_proposé  CHECK   (prix_proposé > 0),
 CONSTRAINT   num_offre     CHECK   (num_offre < 6)
 );
