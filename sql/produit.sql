@@ -14,8 +14,7 @@ VALUES(
 	'Chausson d''escalade-ROCK', 
 	'35', 
 	'Confortable et vous aide à vous améliorer rapidement',
-    'https://www.decathlon.fr/p/chaussons-d-escalade-rock/_/R-p-8899?mc=8230651&
-	 gclid=EAIaIQobChMIt5ftvdTR9AIVg7HtCh0bkg8GEAQYBiABEgK_3fD_BwE'
+    'https://contents.mediadecathlon.com/p649168/k$2366d67ba882ea3218d88423d7262f70/sq/chaussons-descalade-rock.jpg?format=auto&f=480x480'
 );
  
  
@@ -36,7 +35,7 @@ VALUES(
 	'TSHIRT FITNESS MANCHES LONGUES', 
 	'12', 
 	'bien coupé et stylé',	
-    'https://www.decathlon.fr/p/t-shirt-fitness-manches-longues-slim-coton-extensible-col-rond-homme/_/R-p-323787?mc=8640475'
+    'https://contents.mediadecathlon.com/p2072960/k$d4fb97300d6bdbecab8454df3fddbc4f/sq/t-shirt-fitness-manches-longues-slim-coton-extensible-col-rond-homme-ocre.jpg?format=auto&f=480x480'
 );
  
  
@@ -47,7 +46,7 @@ VALUES(
 	'VESTE CHAUDE IMPERIABLE', 
 	'40', 
 	'idéale pour randonner dans le froid',
-    'https://www.decathlon.fr/p/veste-chaude-impermeable-de-randonnee-sh100-x-warm-10-c-femme/_/R-p-166271?mc=8398572'
+    'https://contents.mediadecathlon.com/p1651883/k$26b2b27ab206ab493cb73fa94e1ad3f4/sq/veste-chaude-impermeable-de-randonnee-sh100-x-warm-10c-femme.jpg?format=auto&f=480x480'
 );
  
  
@@ -58,7 +57,7 @@ VALUES(
 	'Chausson d''escalade-ROCK+GRIS', 
 	'50', 
 	'Confortable et de grande qualité',
-    'https://www.decathlon.fr/p/chaussons-d-escalade-rock/_/R-p-167271?mc=8495164'
+    'https://contents.mediadecathlon.com/p1966294/k$dbbe4fd2ce3cfdd804348ef6a4524f82/sq/chaussons-descalade-rock-gris.jpg?format=auto&f=480x480'
 );
  
  
@@ -69,7 +68,7 @@ VALUES(
 	'Chaussure Tennis Professionnel', 
 	'135', 
 	'très moderne et pratique pour tous types de surface',
-    'https://www.decathlon.fr/p/chaussures-de-tennis-adulte-gel-solution-speed-ff-blanches-multicourt/_/R-p-X8659342?mc=8659342'
+    'https://contents.mediadecathlon.com/p1959998/k$b66380d584bb928160a3ae13dffa7327/sq/chaussures-de-tennis-adulte-gel-solution-speed-ff-blanches-multicourt.jpg?format=auto&f=480x480'
 );
  
  
@@ -80,5 +79,46 @@ VALUES(
 	'Chausson d''escalade-EDGE LACET', 
 	'90', 
 	'Elaboré avec des grimpeurs experts',
-    'https://www.decathlon.fr/p/chaussons-d-escalade-edge-lacet-v2-anis-bleu/_/R-p-309268?mc=8550817'
+    'https://contents.mediadecathlon.com/p1966344/k$ef4134f9afafff7222cdee8f907c0b9a/sq/chaussons-descalade-edge-lacet-v2-anisbleu.jpg?format=auto&f=480x480'
+);
+
+INSERT INTO PRODUIT (ID_P, NOM_CAT, INTITULÉ, PRIX_COURANT, DESCRIPTION, URL_PHOTO)
+VALUES(
+	'9',
+	'HIGH-TECH', 
+	'ANCIENNE CONSOLE NINTENDO GAME BOY', 
+	'70', 
+	'la console fonctionne. Elle a jauni avec le temps.',
+    'https://i.ebayimg.com/images/g/pwoAAOSw3-FhrhDH/s-l1600.jpg'
+);
+
+INSERT INTO PRODUIT (ID_P, NOM_CAT, INTITULÉ, PRIX_COURANT, DESCRIPTION, URL_PHOTO)
+VALUES(
+	'11',
+	'ART', 
+	'Tableau Peinture Cadre 20è XXè ', 
+	'73', 
+	'Signé Marine Marseille, rare et ancien',
+    'https://i.ebayimg.com/images/g/ZhYAAOSw-~lhrQ~a/s-l1600.jpg'
+);
+
+INSERT INTO PRODUIT (ID_P, NOM_CAT, INTITULÉ, PRIX_COURANT, DESCRIPTION, URL_PHOTO)
+VALUES(
+	'12',
+	'ART', 
+	'APPLIQUE DE BIBLIOTHEQUE 5555 EDITION DISDEROT 1950 GUARICHE BINY MATHIEU  ', 
+	'350', 
+	'Luminaire du début des année 50, très bel état d"usage, peinture d"origine',
+    'https://i.ebayimg.com/images/g/UCIAAOSwfQlhq6Hm/s-l1600.jpg'
+);
+
+
+INSERT INTO PRODUIT (ID_P, NOM_CAT, INTITULÉ, PRIX_COURANT, DESCRIPTION, URL_PHOTO)
+VALUES(
+	'13',
+	'ART', 
+	'Monnaie, Leo I, Solidus, 462-466, Constantinople, Or,', 
+	'880', 
+	'Buste diadémé, casqué et cuirassé de Léon Ier de face, tenant de la main droite la haste qui repose sur l"épaule et de la gauche, un bouclier orné d"un cavalier chargeant à droite, la Victoire drapée, debout à gauche, tenant une longue croix',
+    'https://cdn.numiscorner.com/86/79/43/867943A.jpg'
 );

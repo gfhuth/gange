@@ -96,3 +96,16 @@ VALUES
 INSERT INTO CATEGORIE (nom_cat, cat_mere)
 VALUES
 ('VESTE DE SKI ENFANT', 'VESTE DE SKI');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('HIGH-TECH', 'HIGH-TECH');
+
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('ART', 'ART');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('MONNAIE', 'MONNAIE');

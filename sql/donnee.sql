@@ -2,34 +2,59 @@
  
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 1, 'Toutes les tailles allant de 37 à 48 sont disponibles');
+('Tailles', 1, '41');
 
 
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 2, 'Toutes les tailles allant de 37 à 42 sont disponibles');
+('Tailles', 2, '35');
 
 
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 3, 'Toutes les tailles allant de S à 4XL sont disponibles');
+('Tailles', 3, 'L');
 
  
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 4, 'Toutes les tailles allant de S à 2XL sont disponibles');
+('Tailles', 4, 'XS');
 
 
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 5, 'Toutes les tailles allant de 37 à 48 sont disponibles');
+('Tailles', 5, '46');
 
 
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 6, 'Toutes les tailles allant de 37 à 46 sont disponibles');
+('Tailles', 6, '39');
 
 
 INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
 VALUES
-('Tailles disponobiles', 7, 'Toutes les tailles allant de 37 à 48 sont disponibles');
+('Tailles', 7, '43');
+
+INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
+VALUES
+('Année', 9, '1992');
+
+INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
+VALUES
+('Longueur:', 11, '32,5cm');
+
+INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
+VALUES
+('Largeur:', 11, '24cm');
+
+INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
+VALUES
+('Matière:', 12, 'Laiton');
+
+
+INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
+VALUES
+('Diamètre:', 13, '20cm');
+
+INSERT INTO DONNEES (CARACTERISTIQUE, ID_P, VALEUR)
+VALUES
+('Année:', 13, '462-466');

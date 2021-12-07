@@ -3,7 +3,7 @@ INSERT INTO client VALUES (
 	'1', 
 	'Bourret ', 
 	'Thais', 
-	'681, Rue de la Passerelle, Saint Martin Dheres', 
+	'225 Allée Condillac, Saint Martin Dheres', 
 	'123456'
 );
 INSERT INTO client VALUES (
@@ -19,7 +19,7 @@ INSERT INTO client VALUES (
 	'3', 
 	'Block Medin', 
 	'Lucas', 
-	'681, Rue de la Passerelle, Saint Martin Dheres', 
+	'23 avenue Fernand Léger, Paris', 
 	'password'
 );
 INSERT INTO client VALUES (
@@ -27,7 +27,7 @@ INSERT INTO client VALUES (
 	'4', 
 	'Bouhjoura', 
 	'Yanis', 
-	'681, Rue de la Passerelle, Saint Martin Dheres', 
+	'2 rue françois 1er, Lyon', 
 	'p455w0rd'
 );
 INSERT INTO client VALUES (
@@ -35,6 +35,6 @@ INSERT INTO client VALUES (
 	'5', 
 	'Katof', 
 	'Yassine', 
-	'681, Rue de la Passerelle, Saint Martin Dheres', 
+	'103 chemin des palmiers, Bordeaux', 
 	'312654'
 );
