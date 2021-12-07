@@ -1,12 +1,3 @@
-CREATE TABLE client (
-	EMAIL varchar(46) NOT NULL, 
-	ID_U integer, 
-	NOM varchar(19), 
-	PRENOM varchar(17), 
-	ADRESSE varchar(54), 
-	MOT_DE_PASSE varchar(16), 
-	PRIMARY KEY (EMAIL)
-);
 INSERT INTO client VALUES (
 	'thais.Bourret@grenoble-inp.org', 
 	'1', 

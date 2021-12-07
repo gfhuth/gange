@@ -1,12 +1,4 @@
-CREATE TABLE produit (
-	ID_P integer NOT NULL, 
-	NOM_CAT varchar(18), 
-	INTITULÉ varchar(23), 
-	PRIX_COURANT integer, 
-	DESCRIPTION varchar(127), 
-	URL_PHOTO varchar(99), 
-	PRIMARY KEY (ID_P)
-);
+
 INSERT INTO produit VALUES (
 	'1', 
 	'Chaussures', 
