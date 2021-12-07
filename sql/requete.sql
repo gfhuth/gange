@@ -29,3 +29,14 @@ UPDATE Offre SET id_u = '180' WHERE id_u = 5;
 DELETE FROM UTILISATEUR WHERE id_u = 5;
 
 
+-- Liste des produits où le client peut proposer une offre 
+
+SELECT * FROM PRODUIT WHERE ID_P IN
+(
+SELECT id_p
+FROM OFFRE
+HAVING COUNT(num_offre) < 5
+GROUP BY id_p
+);
+
+
