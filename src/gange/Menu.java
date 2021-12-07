@@ -5,7 +5,11 @@ import java.util.Scanner;
 import java.util.LinkedList;
 
 public class Menu {
-	
+	Scanner scan = new Scanner(System.in);
+	ConnectionManager conn;
+	public Menu(ConnectionManager conn) {
+		this.conn = conn;
+	}
 	public boolean login(ConnectionManager c){
 
 		clear();
@@ -16,7 +20,7 @@ public class Menu {
 		String email = scan.next();
 		//verify if email exist
 	    //if doesnt exist ask again to user to put a valid email
-		while(!c.verifyEmail(email)){
+		while(!this.conn.verifyEmail(email)){
 			System.out.println("S'il vous plait rentrez une adresse mail valide:");
 			System.out.print("e-mail: "); 
 			email = scan.next();
@@ -25,7 +29,7 @@ public class Menu {
 
 		System.out.print("password: ");
 		String password = scan.next();
-		while(!c.verifyPassword(email, password)){
+		while(!this.conn.verifyPassword(email, password)){
 			System.out.println("S'il vous plait rentrez un autre mot de passe:");
 			System.out.print("password: ");
 			password = scan.next();
@@ -87,9 +91,9 @@ public class Menu {
 		String confirmation = scan.nextLine();
 		System.out.println(confirmation);
 		if(confirmation.equals("oui")){
-			if(c.delClient(email)){
+			if(this.conn.delClient(email)){
 				System.out.println("Votre compte a ete elimine. On va vous déconnecter");
-				c.close();
+				this.conn.close();
 			}else{
 				System.out.println("Il y a eu une erreur. On n'as pas pu vous éliminer.");
 			}	
@@ -136,7 +140,7 @@ public class Menu {
 		coord.add(motDePasse);
 
 		//On execute la demande de création
-		if(c.createClient(coord)){
+		if(this.conn.createClient(coord)){
 			System.out.println("Votre compte a été crée correctement. Maintenant vous êtes connecté");
 		}else{
 			System.out.println("Une erreur est survenue, le compte n'as pas été créé");
