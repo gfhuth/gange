@@ -18,3 +18,14 @@ INNER JOIN OFFRE on Produit.ID_P = OFFRE.ID_P
 Where offre.id_u = '1'
 GROUP BY nom_cat, id_u
 ORDER BY nb DESC, nom_cat;
+
+
+-- Droit à l'oubli 
+-- Par exemple le client dont id_u = 5 souhaite supprimmer ces données de la base
+
+DELETE FROM CLIENT WHERE id_u = 5;
+INSERT INTO UTILISATEUR VALUES(180);
+UPDATE Offre SET id_u = '180' WHERE id_u = 5;
+DELETE FROM UTILISATEUR WHERE id_u = 5;
+
+
