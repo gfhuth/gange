@@ -37,7 +37,7 @@ CREATE TABLE DONNEES
 Caracteristique varchar(255) NOT NULL,
 id_p            REFERENCES PRODUIT(id_p),
 valeur          varchar(255) NOT NULL,
-PRIMARY KEY (Caracteristique)
+PRIMARY KEY (Caracteristique, id_p)
 );
 
 -- faute d'orthographe dans datee car sinon erreur date ne peut pas être utilisé comme nom de colonne !
