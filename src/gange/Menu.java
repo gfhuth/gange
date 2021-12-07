@@ -11,7 +11,6 @@ public class Menu {
 	public Menu(ConnectionManager conn) {
 		this.conn = conn;
 	}
-<<<<<<< HEAD
 	
 	public int login(){
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
@@ -32,32 +31,13 @@ public class Menu {
 				}
 			}
 			errorCount++;
-=======
-	public boolean login(ConnectionManager c){
-
-		clear();
-		gange();
-		header("Bienvenu dans Gange vos enchères de confiance");
-		Scanner scan = new Scanner(System.in);  
-		System.out.print("e-mail: ");   
-		String email = scan.next();
-		//verify if email exist
-	    //if doesnt exist ask again to user to put a valid email
-		while(!this.conn.verifyEmail(email)){
->>>>>>> RGPDFromMaster
 			System.out.println("S'il vous plait rentrez une adresse mail valide:");
 			System.out.print("e-mail: "); 
 			email = scan.next();
 
-<<<<<<< HEAD
+
 		}
 		if (quitFlag == 0) {
-=======
-		System.out.print("password: ");
-		String password = scan.next();
-		while(!this.conn.verifyPassword(email, password)){
-			System.out.println("S'il vous plait rentrez un autre mot de passe:");
->>>>>>> RGPDFromMaster
 			System.out.print("password: ");
 			String password = scan.next();
 			errorCount = 0;
