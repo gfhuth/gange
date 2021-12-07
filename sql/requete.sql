@@ -8,7 +8,8 @@ GROUP BY nom_cat
 ORDER BY nb DESC, nom_cat;
 
 
---Affiche combien d'offre l'utilsiateur numero 1 a effectué dans toutes les catégeries par ordre décroissant (prend aussi compte de l'ordre alphabétique)
+--Affiche combien d'offre l'utilsiateur numero 1 a effectué dans toutes les catégeries par ordre décroissant 
+--(prend aussi compte de l'ordre alphabétique)
  
 
 SELECT id_u, nom_cat, COUNT(nom_cat) as nb
