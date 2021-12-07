@@ -25,7 +25,7 @@ CREATE TABLE PRODUIT
 (
 id_p	       INT NOT NULL,
 nom_cat        REFERENCES CATEGORIE(nom_cat),
-intitulé       varchar (30) NOT NULL,
+intitulé       varchar (255) NOT NULL,
 prix_courant   FLOAT NOT NULL,
 description    varchar(255) NOT NULL,
 url_photo      varchar(255) NOT NULL,
