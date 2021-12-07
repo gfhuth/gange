@@ -8,8 +8,8 @@ import java.util.LinkedList;
 public class ConnectionManager {
 
 	static final String CONN_URL = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
-	static final String user = "katofy"; // A remplacer pour votre compte, sinon genere une exception
-	static final String password = "katofy";
+	static final String user = "blockmel"; // A remplacer pour votre compte, sinon genere une exception
+	static final String password = "blockmel";
 	public Connection connection;
 
 	public ConnectionManager() {

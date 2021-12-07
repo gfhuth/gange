@@ -3,24 +3,26 @@ import gange.*;
 
 public class main {
 	public static void main(String[] args) {
-		ConnectionManager c = new ConnectionManager();
-		Menu m = new Menu();
+		ConnectionManager conn = new ConnectionManager();
+		Menu m = new Menu(conn);
 
-		switch(m.login(c)) {
+		switch(m.login()) {
 		case 1:
 			switch(m.askSuggestion()) {
 			case 1:
-				System.out.println("oi");
+				System.out.println("oi"); 	//with suggestion
 				break;
 			case 2:
-				System.out.println("thcau");
+				System.out.println("thcau"); // without suggestion
+				
+				
 				break;
 			default: break;
 			}
 		case 0:
 		default:
 			System.out.println("au revoir");
-			c.close();
+			conn.close();
 			break;
 		}
 	}
