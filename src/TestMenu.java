@@ -1,3 +1,6 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import gange.*;
 
 public class TestMenu {
