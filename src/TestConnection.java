@@ -5,9 +5,8 @@ public class TestConnection {
 		try {
 			// Enregistrement du driver Oracle
 			ConnectionManager c = new ConnectionManager();
-			Menu m = new Menu();
-			m.clear();
-			m.login(c);
+			Menu m = new Menu(c);
+			m.login();
 
 			c.connection.close();
 		} catch (SQLException e) {

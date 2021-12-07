@@ -6,14 +6,15 @@ import java.util.Scanner;
 
 public class Menu {
 	ConnectionManager conn;
+	Scanner scan = new Scanner(System.in);
 	public Menu(ConnectionManager conn) {
 		this.conn = conn;
 	}
 
-	
+
 	public int login(){
-		Scanner scan = new Scanner(System.in);
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
+		
 		System.out.print("e-mail: ");   
 		String email = scan.next();
 		//verify if email exist
@@ -56,12 +57,11 @@ public class Menu {
 			}
 		}
 		else {}
-		//		scan.close();
-		scan.close();
 		return 1 - quitFlag; //	invert quitFlag
 	}
 
 	public void close() {
+		scan.close();
 		this.conn.close();
 	}
 
@@ -113,7 +113,6 @@ public class Menu {
 	 * @param email
 	 */
 	public void eliminerClient(String email) {
-		Scanner scan = new Scanner(System.in);
 		System.out.print("Bonjour, êtes vous sur de vouloir éliminer votre compte? [oui/non]");   
 		String confirmation = scan.nextLine();
 		System.out.println(confirmation);
@@ -128,7 +127,7 @@ public class Menu {
 			System.out.println("On reviens vers votre page de recommandations");
 			System.out.println("Si c'est ps ce que vous vouliez,veuillez reéssayer en écrivant oui en toutes lettres");
 		}
-		scan.close();
+		
 	}
 
 	/**
@@ -141,7 +140,6 @@ public class Menu {
 	 */
 	public void creationCompte(){
 		LinkedList<String> coord = new LinkedList<String>();
-		Scanner scan = new Scanner(System.in);
 		//On recupère les coords
 		System.out.print("On va procéder à la création d'un compte veuillez répondre aux questions suivantes\n");
 		System.out.println("Email:");
@@ -168,7 +166,7 @@ public class Menu {
 		}
 
 		//On ferme le scan
-		scan.close();
+		
 	}
 
 	/**
@@ -183,10 +181,9 @@ public class Menu {
 	}
 
 	public int askSuggestion() {
-		Scanner scan = new Scanner(System.in);
 		int option;
 		do {
-			
+
 			gange("Souhaitez-vous recevoir des suggestions basées sur vos antécédents ?"); 
 			System.out.println();
 			System.out.println("\t\t\t     Oui...................[1]");
@@ -195,12 +192,11 @@ public class Menu {
 			System.out.println();
 			option = scan.nextInt();
 		}while(option < 0 || option > 3);
-		scan.close();
+		
 		return option;
 	}
 
 	public int listProducts(String s){
-		Scanner scan = new Scanner(System.in);
 		ResultSet rset = conn.exec(s);
 		int option;
 		gange("votre meilleur choix");
@@ -229,30 +225,31 @@ public class Menu {
 			System.out.print("password: ");
 		} catch (SQLException e) {e.printStackTrace();}
 		option = scan.nextInt();
-		scan.close();
+		
 		return option;
 	}
-	
+
 	public int listCategories() {
 		int catNum;
-		Scanner scan = new Scanner(System.in);
 		LinkedList<String> cat = new LinkedList<String>();
 		ResultSet rset = conn.exec("SELECT NOM_CAT FROM CATEGORIE");
 		gange("votre meilleur choix");//Choisissez une catégorie
-		ResultSetMetaData rsetmd = rset.getMetaData();
-		System.out.print("\t\t\t\t");
-		System.out.print(rsetmd.getColumnName(1));
+		ResultSetMetaData rsetmd = null;
+		try {
+			rsetmd = rset.getMetaData();
+			System.out.print("\t\t\t\t");
+
+			System.out.print(rsetmd.getColumnName(1));
+		} catch (SQLException e) {e.printStackTrace();}
 		header("Choisissez votre produit");
 		catNum = scan.nextInt();
-		scan.close();
+		
 		return catNum;
 	}
-	
+
 	public int loginOrSignUp(){
-		Scanner scan = new Scanner(System.in);
 		int option;
 		do {
-			
 			gange("Bienvenue, voulez-vous vous inscrire ou vous connecter avec votre compte ?"); 
 			System.out.println();
 			System.out.println("\t\t\t     Mon compte............[1]");
@@ -261,10 +258,8 @@ public class Menu {
 			System.out.println();
 			option = scan.nextInt();
 		}while(option < 0 || option > 2);
-		scan.close();
+		
 		return option;
-		
-		
 	}
 
 }
