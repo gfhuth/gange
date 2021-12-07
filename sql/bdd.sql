@@ -25,7 +25,7 @@ CREATE TABLE PRODUIT
 (
 id_p	       INT NOT NULL,
 nom_cat        REFERENCES CATEGORIE(nom_cat),
-intitulé       varchar (30) NOT NULL,
+intitulé       varchar (255) NOT NULL,
 prix_courant   FLOAT NOT NULL,
 description    varchar(255) NOT NULL,
 url_photo      varchar(255) NOT NULL,
@@ -37,9 +37,10 @@ CREATE TABLE DONNEES
 Caracteristique varchar(255) NOT NULL,
 id_p            REFERENCES PRODUIT(id_p),
 valeur          varchar(255) NOT NULL,
-PRIMARY KEY (Caracteristique)
+PRIMARY KEY (Caracteristique, id_p)
 );
 
+-- faute d'orthographe dans datee car sinon erreur date ne peut pas être utilisé comme nom de colonne !
 CREATE TABLE OFFRE
 (
 id_p          REFERENCES PRODUIT(id_p),

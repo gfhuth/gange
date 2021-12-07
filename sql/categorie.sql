@@ -1,35 +1,98 @@
+-- categories 
 
-INSERT INTO CATEGORIE VALUES (
-	'Chaussures', 
-	'Chaussures'
-);
+-- La première catégorie mère est sa propre catégorie mère
 
-INSERT INTO CATEGORIE VALUES (
-	'Sport', 
-	'Chaussures'
-);
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures', 'Chaussures');
 
-INSERT INTO CATEGORIE VALUES (
-	'Ville', 
-	'Chaussures'
-);
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chausson d''escalade', 'Chaussures');
 
-INSERT INTO CATEGORIE VALUES (
-	'Vêtements', 
-	'Vêtements'
-);
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures de Tennis', 'Chaussures');
 
-INSERT INTO CATEGORIE VALUES (
-	'Femmes', 
-	'Vêtements'
-);
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures de Tennis Enfant', 'Chaussures de Tennis');
 
-INSERT INTO CATEGORIE VALUES (
-	'Homme', 
-	'Vêtements'
-);
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures de Tennis professionnel', 'Chaussures de Tennis');
 
-INSERT INTO CATEGORIE VALUES (
-	'Enfants', 
-	'Vêtements'
-);
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures chaudes et impérméables', 'Chaussures');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures FOOTBALL', 'Chaussures');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures FOOTBALL Enfant', 'Chaussures FOOTBALL');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('Chaussures FOOTBALL ADULTE TERRAIN SEC', 'Chaussures FOOTBALL');
+
+
+
+
+
+-- La première catégorie mère est sa propre catégorie mère
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT', 'T-SHIRT');
+ 
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT FITNESS', 'T-SHIRT');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT FITNESS Manches courtes', 'T-SHIRT FITNESS');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT ENFANT', 'T-SHIRT');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT ENFANT COTON', 'T-SHIRT ENFANT');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT ENFANT ATLHETHISME', 'T-SHIRT ENFANT');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('T-SHIRT FANTI UV SURF', 'T-SHIRT');
+
+
+
+
+-- La première catégorie est sa propre catégorie mère
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('VESTE', 'VESTE');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('VESTE CHAUDE', 'VESTE'); 
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('VESTE POLAIRE CHAUDE DE RANDONNE', 'VESTE CHAUDE');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('VESTE DE SKI', 'VESTE CHAUDE');
+
+INSERT INTO CATEGORIE (nom_cat, cat_mere)
+VALUES
+('VESTE DE SKI ENFANT', 'VESTE DE SKI');
