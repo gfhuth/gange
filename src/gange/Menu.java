@@ -145,5 +145,17 @@ public class Menu {
 		//On ferme le scan
 		scan.close();
 	}
+
+	/**
+	 * Fonction pour lancer une nouvelle enchère.
+	 * À adapter selon son intégration avec le reste du système
+	 * Pour moi les enchères devraient être faites au sein de la page produit
+	 * @param c
+	 * @param id_p
+	 * @param email
+	 */
+	public void faireEnchere(ConnectionManager c, int id_p, String email){
+		c.makeBid(id_p, email);
+	}
 }
 
