@@ -6,6 +6,7 @@ import gange.*;
 public class TestMenu {
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		ConnectionManager c = new ConnectionManager();
 		Menu m = new Menu(c);
 		switch(m.askSuggestion()) {
@@ -20,6 +21,12 @@ public class TestMenu {
 		default: break;
 		}
 		
+=======
+		ConnectionManager Connected = new ConnectionManager();
+		Menu menuTesting = new Menu();
+		//menuTesting.bienvenu();
+		menuTesting.login(Connected);
+>>>>>>> RGPDFromMaster
 	}
 
 }

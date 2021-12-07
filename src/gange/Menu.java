@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 public class Menu {
 	Scanner scan = new Scanner(System.in);
@@ -10,6 +11,7 @@ public class Menu {
 	public Menu(ConnectionManager conn) {
 		this.conn = conn;
 	}
+<<<<<<< HEAD
 	
 	public int login(){
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
@@ -30,12 +32,32 @@ public class Menu {
 				}
 			}
 			errorCount++;
+=======
+	public boolean login(ConnectionManager c){
+
+		clear();
+		gange();
+		header("Bienvenu dans Gange vos enchères de confiance");
+		Scanner scan = new Scanner(System.in);  
+		System.out.print("e-mail: ");   
+		String email = scan.next();
+		//verify if email exist
+	    //if doesnt exist ask again to user to put a valid email
+		while(!this.conn.verifyEmail(email)){
+>>>>>>> RGPDFromMaster
 			System.out.println("S'il vous plait rentrez une adresse mail valide:");
 			System.out.print("e-mail: "); 
 			email = scan.next();
 
+<<<<<<< HEAD
 		}
 		if (quitFlag == 0) {
+=======
+		System.out.print("password: ");
+		String password = scan.next();
+		while(!this.conn.verifyPassword(email, password)){
+			System.out.println("S'il vous plait rentrez un autre mot de passe:");
+>>>>>>> RGPDFromMaster
 			System.out.print("password: ");
 			String password = scan.next();
 			errorCount = 0;
@@ -104,7 +126,77 @@ public class Menu {
 		header(s);
 	}
 
-	public void deletUser(String user) {
+	/**
+	 * Cette fonction va servir à gérer un Client qui veut éliminer son compte
+	 * 
+	 * TODO : Il serait intéréssant de stocker le mail du client lors du login,parceque ça n'as pas trop de sens de le redemander.
+	 * 
+	 * @param c
+	 * @param email
+	 */
+	public void eliminerClient(ConnectionManager c, String email) {
+		Scanner scan = new Scanner(System.in);  
+		System.out.print("Bonjour, êtes vous sur de vouloir éliminer votre compte? [oui/non]");   
+		String confirmation = scan.nextLine();
+		System.out.println(confirmation);
+		if(confirmation.equals("oui")){
+			if(this.conn.delClient(email)){
+				System.out.println("Votre compte a ete elimine. On va vous déconnecter");
+				this.conn.close();
+			}else{
+				System.out.println("Il y a eu une erreur. On n'as pas pu vous éliminer.");
+			}	
+		}else{
+			System.out.println("On reviens vers votre page de recommandations");
+			System.out.println("Si c'est ps ce que vous vouliez,veuillez reéssayer en écrivant oui en toutes lettres");
+		}
+		scan.close();
+	}
+
+	/**
+	 * Fonction qui permet de créer un compte en demandant les informations au client
+	 * 
+	 * TODO : Il serait intéressant de vérifier les coords fournies. Vérification de si un compte existe déjà
+	 * Et vérification que les coords sont logiques
+	 * 
+	 * @param c
+	 */
+	public void creationCompte(ConnectionManager c){
+		LinkedList<String> coord = new LinkedList<String>();
+		Scanner scan = new Scanner(System.in); 
+
+		//On recupère les coords
+		System.out.print("On va procéder à la création d'un compte veuillez répondre aux questions suivantes\n");
+		System.out.println("Email:");
+		String email=scan.nextLine();
+		System.out.println(email);
+		coord.add(email);
+		System.out.println("Nom:");
+		String nom=scan.nextLine();
+		System.out.println(nom);
+		coord.add(nom);
+		System.out.println("Prenom:");
+		String prenom=scan.nextLine();
+		System.out.println(prenom);
+		coord.add(prenom);
+		System.out.println("Adresse:");
+		String adresse=scan.nextLine();
+		System.out.println(adresse);
+		coord.add(adresse);
+		System.out.println("Mot de passe:");
+		String motDePasse=scan.nextLine();
+		System.out.println(motDePasse);
+		coord.add(motDePasse);
+
+		//On execute la demande de création
+		if(this.conn.createClient(coord)){
+			System.out.println("Votre compte a été crée correctement. Maintenant vous êtes connecté");
+		}else{
+			System.out.println("Une erreur est survenue, le compte n'as pas été créé");
+		}
+
+		//On ferme le scan
+		scan.close();
 	}
 
 	public int askSuggestion() {
