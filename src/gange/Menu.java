@@ -11,10 +11,7 @@ public class Menu {
 	public Menu(ConnectionManager conn) {
 		this.conn = conn;
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> RGPDFromMaster
 	
 	public int login(){
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
@@ -24,7 +21,7 @@ public class Menu {
 		//if doesnt exist ask again to user to put a valid email
 		int errorCount = 0;
 		int quitFlag = 0 ;
-		while(!conn.verifyEmail(email)){
+		while(!this.conn.verifyEmail(email)){
 			if (errorCount >= 2){
 				System.out.println("Voulez-vous fermer l'application ?");
 				System.out.println("\t\t\t     Continuer.............[1]");
@@ -38,17 +35,12 @@ public class Menu {
 			System.out.println("S'il vous plait rentrez une adresse mail valide:");
 			System.out.print("e-mail: "); 
 			email = scan.next();
-<<<<<<< HEAD
-
-
-=======
->>>>>>> RGPDFromMaster
 		}
 		if (quitFlag == 0) {
 			System.out.print("password: ");
 			String password = scan.next();
 			errorCount = 0;
-			while(!conn.verifyPassword(email, password)){
+			while(!this.conn.verifyPassword(email, password)){
 				if (errorCount >= 2){
 					System.out.println("Voulez-vous fermer l'application ?");
 					System.out.println("\t\t\t     Continuer.............[1]");
@@ -121,8 +113,7 @@ public class Menu {
 	 * @param c
 	 * @param email
 	 */
-	public void eliminerClient(ConnectionManager c, String email) {
-		Scanner scan = new Scanner(System.in);  
+	public void eliminerClient(String email) {
 		System.out.print("Bonjour, êtes vous sur de vouloir éliminer votre compte? [oui/non]");   
 		String confirmation = scan.nextLine();
 		System.out.println(confirmation);
@@ -148,9 +139,8 @@ public class Menu {
 	 * 
 	 * @param c
 	 */
-	public void creationCompte(ConnectionManager c){
+	public void creationCompte(){
 		LinkedList<String> coord = new LinkedList<String>();
-		Scanner scan = new Scanner(System.in); 
 
 		//On recupère les coords
 		System.out.print("On va procéder à la création d'un compte veuillez répondre aux questions suivantes\n");
@@ -190,19 +180,15 @@ public class Menu {
 	 * Fonction pour lancer une nouvelle enchère.
 	 * À adapter selon son intégration avec le reste du système
 	 * Pour moi les enchères devraient être faites au sein de la page produit
-	 * @param c
 	 * @param id_p
 	 * @param email
 	 */
-	public void faireEnchere(ConnectionManager c, int id_p, String email){
-		c.makeBid(id_p, email);
+	public void faireEnchere(int id_p, String email){
+		this.conn.makeBid(id_p, email);
 	}
 
 	public int askSuggestion() {
 		int option;
-
-
-		//		Scanner scan = new Scanner(System.in);  
 		do {
 			
 			gange("Souhaitez-vous recevoir des suggestions basées sur vos antécédents ?"); 
@@ -213,35 +199,48 @@ public class Menu {
 			System.out.println();
 			option = scan.nextInt();
 		}while(option < 0 || option > 3);
-		//		scan.close();
 		return option;
 	}
 
-	public int listProducts(String s) throws SQLException {
+	public int listProducts(String s){
 		ResultSet rset = conn.exec(s);
 		gange("votre meilleur choix");
-		ResultSetMetaData rsetmd = rset.getMetaData();
-		System.out.print("\t\t" + 
-						 rsetmd.getColumnName(1) + "\t\t");
-		System.out.print(rsetmd.getColumnName(2) + "\t");
-		System.out.print(rsetmd.getColumnName(3) + "\t");
-		System.out.print(rsetmd.getColumnName(4));
-		System.out.println();
-		header("Gange");
-		while (rset.next()) {
-			
-			System.out.printf(
-					"%30.30s\t%20.20s\t%.5s\t%10.5s", 
-					rset.getString(1),
-					rset.getString(2),
-					rset.getString(3),
-					rset.getString(4));
+		ResultSetMetaData rsetmd;
+		try {
+			rsetmd = rset.getMetaData();
+
+			System.out.print("\t\t" + 
+					rsetmd.getColumnName(1) + "\t\t");
+			System.out.print(rsetmd.getColumnName(2) + "\t");
+			System.out.print(rsetmd.getColumnName(3) + "\t");
+			System.out.print(rsetmd.getColumnName(4));
 			System.out.println();
-		}
-		header("Quel produit vous intéresse?  Ou ");
-		System.out.print("password: ");
-		String chois = scan.next();
-		return 0;
+			header("Choisissez votre produit");
+			while (rset.next()) {
+
+				System.out.printf(
+						"%30.30s\t%20.20s\t%.5s\t%10.5s", 
+						rset.getString(1),
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4));
+				System.out.println();
+			}
+			header("Quel produit vous intéresse?  Ou ");
+			System.out.print("password: ");
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return scan.nextInt();
+	}
+	
+	public int listCategories() {
+		LinkedList<String> cat = new LikedList<String>();
+		ResultSet rset = conn.exec("SELECT NOM_CAT FROM CATEGORIE");
+		gange("votre meilleur choix");//Choisissez une catégorie
+		ResultSetMetaData rsetmd = rset.getMetaData();
+		System.out.print("\t\t\t\t");
+		System.out.print(rsetmd.getColumnName(1));
+		header("Choisissez votre produit");
 	}
 
 }
