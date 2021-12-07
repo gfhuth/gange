@@ -7,6 +7,7 @@ public class TestMenu {
 
 	public static void main(String[] args) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ConnectionManager c = new ConnectionManager();
 		Menu m = new Menu(c);
 		switch(m.askSuggestion()) {
@@ -22,10 +23,15 @@ public class TestMenu {
 		}
 		
 =======
+=======
+>>>>>>> RGPDFromMaster
 		ConnectionManager Connected = new ConnectionManager();
 		Menu menuTesting = new Menu();
 		//menuTesting.bienvenu();
 		menuTesting.login(Connected);
+<<<<<<< HEAD
+>>>>>>> RGPDFromMaster
+=======
 >>>>>>> RGPDFromMaster
 	}
 

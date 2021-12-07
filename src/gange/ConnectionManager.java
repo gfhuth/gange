@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 //import java.util.LinkedList;
+import java.util.Scanner;
 
 public class ConnectionManager {
 
@@ -176,6 +177,196 @@ public class ConnectionManager {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	/**
+	 * Cette première fonction s'occupe uniquement de la création d'une nouvelle offre
+	 * Elle ne fait ni vérification, ni récupération de données
+	 * Cela sera fait par une fonction enchères de ConnectionManager qui arrive ensuite
+	 * 
+	 * @param idProd
+	 * @param prix
+	 * @param idUtilisateur
+	 * @param numOffre
+	 * @return
+	 */
+	public boolean newOffer(int idProd, float prix, int idUtilisateur, int numOffre){
+		try{
+			//On commence par récupérer la date et l'heure
+			String Date = java.time.LocalDate.now().toString();
+			String Time = java.time.LocalTime.now().toString();
+			//Ensuite on crée notre requete de création
+			String sqlNewOffer = "INSERT INTO OFFRE VALUES(?,?,?,?,?,?) ";
+			PreparedStatement stmtAddOffer = this.connection.prepareStatement(sqlNewOffer);
+			stmtAddOffer.setInt(1, idProd);
+			stmtAddOffer.setString(2, Date);
+			stmtAddOffer.setString(3, Time);
+			stmtAddOffer.setInt(4, idUtilisateur);
+			stmtAddOffer.setFloat(5, prix);
+			stmtAddOffer.setInt(6, numOffre);
+			// Execution de la requete
+			stmtAddOffer.executeUpdate();
+			return true;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Cette fonction sert à modifier le prix d'un produit
+	 * Tout comme avant elle ne s'occupe pas de faire des vérifications
+	 * @param idProd
+	 * @param Prix
+	 * @return
+	 */
+	public boolean updateProduct(int idProd, float Prix){
+		String sqlUpdate = "SELECT PRIX_COURANT FROM PRODUIT WHERE ID_P =" + idProd;
+		//On crée un Statement spécial qui permet de faire des modifications a la BDD (normalment on est en lecture seule)
+		try(Statement stmtUpdate = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
+			// Execution de la requete
+			ResultSet rset = stmtUpdate.executeQuery(sqlUpdate);
+			while (rset.next()){
+				rset.updateFloat("PRIX_COURANT", Prix);
+				rset.updateRow();
+			}
+			return true;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Fonction très simple qui execute une requete pour avoir l'id_u à partir du mail d'un utilisateur
+	 * Dans l'éventualité où il y en a plusieurs, elle rendra le premier. Mais on devrait pas avoir plusieurs.
+	 * @param email
+	 * @return
+	 */
+	public int retrieveUserID(String email){
+		try{
+			String sqlRetrieve = "SELECT ID_U FROM CLIENT WHERE EMAIL=?";
+			PreparedStatement stmtRetrieve = this.connection.prepareStatement(sqlRetrieve);
+			stmtRetrieve.setString(1, email);
+			// Execution de la requete
+			ResultSet rset = stmtRetrieve.executeQuery();
+			int userId = 0; //Si on a 0 on sait qu'il y a une erreur. Pourtant cela ne devrait pas être possible
+							//En effet, l'email a été vérifié au login.
+			while(rset.next()){
+				userId = rset.getInt("ID_U");
+			}
+			return userId;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return 10000;
+		}
+	}
+
+	/**
+	 * Fonction qui recupère le numéro d'offre de la dernière offre faite sur un produit.
+	 * @param idProd
+	 * @return
+	 */
+	public int retrieveOfferNumber(int idProd){
+		try{
+			String sqlRetrieve = "SELECT MAX(NUM_OFFRE) FROM OFFRE WHERE ID_P=?";
+			PreparedStatement stmtRetrieve = this.connection.prepareStatement(sqlRetrieve);
+			stmtRetrieve.setInt(1, idProd);
+			// Execution de la requete
+			ResultSet rset = stmtRetrieve.executeQuery();
+			int numOffre = rset.next()? rset.getInt(1):0;
+			return numOffre;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	/**
+	 * Fonction qui vérifie si le prix proposé est supérieur au prix actuel.
+	 * Retourne true si c'est supérieur.
+	 * @param idProd
+	 * @param prix
+	 * @return
+	 */
+	public boolean verifyPrix(int idProd, float prix){
+		try{
+			//On recupère le prix
+			String sqlVerifyPrix = "SELECT PRIX_COURANT FROM PRODUIT WHERE ID_P="+idProd;
+			ResultSet rset = exec(sqlVerifyPrix);
+			if (rset.next()){//On vérifie qu'il y a eu un retour à la requete
+				float prixCourant = rset.getFloat(1);
+				if(prix>prixCourant){
+					return true;
+				}
+				System.out.println("Votre offre doit être supérieur à :"+prixCourant);
+				return false;
+			}
+			System.out.println("Le produit n'existe pas");
+			return false;
+		}catch(Exception e){
+			return false;
+		}
+	}
+
+	/**
+	 * Fonction qui permet de faire une enchère
+	 * Il crée une nouvelle offre si elle remplit les conditions
+	 * Puis elle fait l'update du prix courant du produit
+	 * @param idProd
+	 * @param email
+	 * @return
+	 */
+	public boolean makeBid(int idProd, String email){
+		try{
+			//On recupère l'Id Utilisateur du Client
+			int idUtilisateur = retrieveUserID(email);
+
+			//On commence par vérifier que le Client veut faire l'enchère
+			String sqlGetProdName = "SELECT Intitulé FROM PRODUIT WHERE ID_P = "+idProd;
+			ResultSet rsetNomProduit = exec(sqlGetProdName);
+			rsetNomProduit.next();
+			String NomProduit = rsetNomProduit.getString("Intitulé");
+			Scanner scan = new Scanner(System.in); 
+			System.out.println("Êtes vous sur de vouloir enchérir "+NomProduit+"?[oui/non]");
+			String confirmation = scan.next();
+
+			if(confirmation.equals("oui")){
+				//Ensuite on vérifie que l'enchère est faisable
+				int numOffre = retrieveOfferNumber(idProd);
+
+				if (numOffre<0 || numOffre>=5){
+					System.out.println("Le produit n'est plus disponible");
+					scan.close();
+					return false;
+				}else{
+					//Finalment on vérifie que le prix offert par le Client est validé
+					System.out.println("Rentrez le prix que vous voulez payer, prix :");
+					float prix = scan.nextFloat();
+
+					while (!verifyPrix(idProd, prix)){
+						System.out.println("Rentrez votre nouvelle offre :");
+						prix = scan.nextFloat();
+					}
+					//Tout s'est bien passé, donc on crée l'offre et on update le produit
+					newOffer(idProd, prix, idUtilisateur, numOffre+1);
+					updateProduct(idProd, prix);
+					if (numOffre+1 == 5){
+						System.out.println("Félicitations ! Vous avez gagné le produit "+NomProduit);
+					}
+				}
+			}else{
+				System.out.println("L'enchère a été annulée");
+				scan.close();
+				return false;
+			}
+			scan.close();
+			return true;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 }
 	

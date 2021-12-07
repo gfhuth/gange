@@ -11,6 +11,10 @@ public class Menu {
 	public Menu(ConnectionManager conn) {
 		this.conn = conn;
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> RGPDFromMaster
 	
 	public int login(){
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
@@ -34,8 +38,11 @@ public class Menu {
 			System.out.println("S'il vous plait rentrez une adresse mail valide:");
 			System.out.print("e-mail: "); 
 			email = scan.next();
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> RGPDFromMaster
 		}
 		if (quitFlag == 0) {
 			System.out.print("password: ");
@@ -177,6 +184,18 @@ public class Menu {
 
 		//On ferme le scan
 		scan.close();
+	}
+
+	/**
+	 * Fonction pour lancer une nouvelle enchère.
+	 * À adapter selon son intégration avec le reste du système
+	 * Pour moi les enchères devraient être faites au sein de la page produit
+	 * @param c
+	 * @param id_p
+	 * @param email
+	 */
+	public void faireEnchere(ConnectionManager c, int id_p, String email){
+		c.makeBid(id_p, email);
 	}
 
 	public int askSuggestion() {
