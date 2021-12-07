@@ -29,6 +29,8 @@ VALUES
 (1, '11/11/21', '18:00', 2, 44, 5);
 UPDATE PRODUIT SET prix_courant = '44' WHERE id_p = 1; 
  
+ -- Normalement il faut écrire après la cinquième offre la commande :
+ -- DELETE FROM PRODUIT WHERE id_p = 1;
  
  -- PRODUIT 2
  
@@ -48,9 +50,9 @@ INSERT INTO OFFRE (ID_P, DATEE, HEURE, ID_U, prix_proposé, num_offre)
 VALUES
 (2, '24/11/21', '1:55', 4, 71, 3);
 UPDATE PRODUIT SET prix_courant = '71' WHERE id_p = 2; 
+
  
- 
- -- PRODUIT 3
+-- PRODUIT 3
  
 INSERT INTO OFFRE (ID_P, DATEE, HEURE, ID_U, prix_proposé, num_offre)
 VALUES
@@ -133,7 +135,7 @@ VALUES
 (6, '15/09/21', '18:00', 2, 170, 5);
 UPDATE PRODUIT SET prix_courant = '170' WHERE id_p = 6;
 
-
+-- *DELETE FROM PRODUIT WHERE id_p = 6;
 
 -- PRODUIT 7
 
@@ -166,3 +168,5 @@ VALUES
 (7, '10/11/21', '16:25', 2, 133, 5);
 UPDATE PRODUIT SET prix_courant = '133' WHERE id_p = 7;
  
+
+--DELETE FROM PRODUIT WHERE id_p = 7;
