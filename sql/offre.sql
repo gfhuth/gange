@@ -169,4 +169,4 @@ VALUES
 UPDATE PRODUIT SET prix_courant = '133' WHERE id_p = 7;
  
 
---DELETE FROM PRODUIT WHERE id_p = 7;
+
