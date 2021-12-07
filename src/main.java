@@ -30,7 +30,7 @@ public class main {
 			m.creationCompte();
 			break;
 		default://m.loginOrSignUp()
-			m.closeMenu();
+			m.close();
 			System.out.println("au revoir");
 			conn.close();
 			break;

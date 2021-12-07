@@ -61,8 +61,8 @@ public class Menu {
 		return 1 - quitFlag; //	invert quitFlag
 	}
 
-	public void fermerApp() {
-
+	public void close() {
+		this.conn.close();
 	}
 
 	public void clear() {
@@ -246,6 +246,25 @@ public class Menu {
 		catNum = scan.nextInt();
 		scan.close();
 		return catNum;
+	}
+	
+	public int loginOrSignUp(){
+		Scanner scan = new Scanner(System.in);
+		int option;
+		do {
+			
+			gange("Bienvenue, voulez-vous vous inscrire ou vous connecter avec votre compte ?"); 
+			System.out.println();
+			System.out.println("\t\t\t     Mon compte............[1]");
+			System.out.println("\t\t\t     Enregistrez...........[2]");
+			System.out.println("\t\t\t     Quitter...............[0]");
+			System.out.println();
+			option = scan.nextInt();
+		}while(option < 0 || option > 2);
+		scan.close();
+		return option;
+		
+		
 	}
 
 }
