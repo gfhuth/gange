@@ -12,9 +12,9 @@ public class Menu {
 	}
 
 
-	public int login(){
+	public int login(User user){
 		gange("Bienvenu dans Gange vos enchères de confiance"); 
-		
+
 		System.out.print("e-mail: ");   
 		String email = scan.next();
 		//verify if email exist
@@ -57,6 +57,7 @@ public class Menu {
 			}
 		}
 		else {}
+		user.setEmail(email);
 		return 1 - quitFlag; //	invert quitFlag
 	}
 
@@ -114,12 +115,11 @@ public class Menu {
 	 */
 	public void eliminerClient(String email) {
 		System.out.print("Bonjour, êtes vous sur de vouloir éliminer votre compte? [oui/non]");   
-		String confirmation = scan.nextLine();
+		String confirmation = scan.next();
 		System.out.println(confirmation);
 		if(confirmation.equals("oui")){
-			if(this.conn.delClient(email)){
+			if(conn.delClient(email)){
 				System.out.println("Votre compte a ete elimine. On va vous déconnecter");
-				this.conn.close();
 			}else{
 				System.out.println("Il y a eu une erreur. On n'as pas pu vous éliminer.");
 			}	
@@ -127,7 +127,7 @@ public class Menu {
 			System.out.println("On reviens vers votre page de recommandations");
 			System.out.println("Si c'est ps ce que vous vouliez,veuillez reéssayer en écrivant oui en toutes lettres");
 		}
-		
+
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class Menu {
 		//On recupère les coords
 		System.out.print("On va procéder à la création d'un compte veuillez répondre aux questions suivantes\n");
 		System.out.println("Email:");
-		String email=scan.nextLine();
+		String email=scan.next();
 		coord.add(email);
 		System.out.println("Nom:");
 		String nom=scan.nextLine();
@@ -166,7 +166,7 @@ public class Menu {
 		}
 
 		//On ferme le scan
-		
+
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class Menu {
 		this.conn.makeBid(id_p, email);
 	}
 
-	public int askSuggestion() {
+	public int accuiel() {
 		int option;
 		do {
 
@@ -188,13 +188,16 @@ public class Menu {
 			System.out.println();
 			System.out.println("\t\t\t     Oui...................[1]");
 			System.out.println("\t\t\t     Non...................[2]");
+			System.out.println("\t\t\t     Supprimer ma compte ..[3]");
 			System.out.println("\t\t\t     Quitter...............[0]");
 			System.out.println();
 			option = scan.nextInt();
 		}while(option < 0 || option > 3);
-		
+
 		return option;
 	}
+
+
 
 	public int listProducts(String s){
 		ResultSet rset = conn.exec(s);
@@ -225,27 +228,29 @@ public class Menu {
 			System.out.print("password: ");
 		} catch (SQLException e) {e.printStackTrace();}
 		option = scan.nextInt();
-		
 		return option;
 	}
 
-	public int listCategories() {
-		int catNum;
-		LinkedList<String> cat = new LinkedList<String>();
-		ResultSet rset = conn.exec("SELECT NOM_CAT FROM CATEGORIE");
-		gange("votre meilleur choix");//Choisissez une catégorie
-		ResultSetMetaData rsetmd = null;
-		try {
-			rsetmd = rset.getMetaData();
-			System.out.print("\t\t\t\t");
-
-			System.out.print(rsetmd.getColumnName(1));
-		} catch (SQLException e) {e.printStackTrace();}
-		header("Choisissez votre produit");
-		catNum = scan.nextInt();
-		
-		return catNum;
-	}
+	//	public int listCategories() {
+	//		int catNum;
+	//		LinkedList<String> cat = new LinkedList<String>();
+	//		ResultSet rset = conn.exec("SELECT NOM_CAT FROM CATEGORIE");
+	//		gange("votre meilleur choix");//Choisissez une catégorie
+	//		ResultSetMetaData rsetmd = null;
+	//		for (rset; i++)
+	//			cat.add()
+	//			System.out.println();
+	//		try {
+	//			rsetmd = rset.getMetaData();
+	//			System.out.print("\t\t\t\t");
+	//
+	//			System.out.print(rsetmd.getColumnName(1));
+	//		} catch (SQLException e) {e.printStackTrace();}
+	//		header("Choisissez votre produit");
+	//		catNum = scan.nextInt();
+	//		
+	//		return catNum;
+	//	}
 
 	public int loginOrSignUp(){
 		int option;
@@ -258,9 +263,179 @@ public class Menu {
 			System.out.println();
 			option = scan.nextInt();
 		}while(option < 0 || option > 2);
-		
+
 		return option;
 	}
+	/**
+	 * J'ai du ajouter email en parametre pour pouvoir faire appel à faire une enchere apres
+	 * @param c
+	 * @param idProd
+	 * @param email
+	 */
+	public void displayProductInfo(ConnectionManager c, int idProd, String email){
+		//On commence par récupérer toutes les données
+		LinkedList<String> informations = c.getProductInfo(idProd);
+		System.out.print("Produit : "+informations.get(0)+"\n");
+		System.out.print("Prix : "+informations.get(1)+"\n");
+		System.out.print("Description : "+informations.get(2)+"\n");
+		int n = informations.size();
+		System.out.print("Caractéristiques : \n");
+		for (int i=3; i<n; i++){
+			System.out.print(informations.get(i)+"\n");
+		}
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Voulez-vous faire une enchère? oui/non");
+		String confirmation = scan.nextLine();
+		if (confirmation.equals("oui")){
+			this.faireEnchere(c, idProd, email);
+			scan.close();
+		}else{
+			scan.close();
+			return ;
+		}
+	}
+
+	public void listProductsFromList(LinkedList<String> products){
+		gange("votre meilleur choix");
+		System.out.print("\t\t" + 
+						 "INTITULÉ" + "\t\t");
+		System.out.print("URL_PHOTO" + "\t");
+		System.out.print("PRIX COURANT" + "\t");
+		System.out.print("ID_P");
+		System.out.println();
+		header("Gange");
+		for(int i = 0; i<products.size();i+=4) {
+			
+			System.out.printf(
+					"%30.30s\t%20.20s\t%.5s\t%10.5s", 
+					products.get(i),
+					products.get(i+1),
+					products.get(i+2),
+					products.get(i+3));
+			System.out.println();
+		}
+		header("Quel produit vous intéresse?  Ou ");
+	}
+
+	public void listCategories(LinkedList<String> categories){
+		gange("votre meilleur choix");
+		System.out.print("\t\t" + 
+						 "Catégories" + "\t\t");
+		System.out.println();
+		header("Gange");
+		int display = categories.size()>10?10:categories.size();
+		for(int i = 0; i<display ;i++) { 
+			
+			System.out.printf(
+					"%30.30s\t", 
+					categories.get(i));
+			System.out.println();
+		}
+		header("Quel catégorie vous intéresse?  Ou ");
+	}
+
+
+	public void displayRecommendedCategories(String email){
+		//Firstly we get the recommended options
+		LinkedList<String> Recommended = conn.getRecommended(email);
+		//Then we print them out
+		listCategories(Recommended);
+		//Then we create a loop to navigate categories
+		System.out.println("Quelle catégorie voulez vous regarder?");
+		Scanner scan = new Scanner(System.in);
+		String nomCat = scan.nextLine();
+		try{
+			LinkedList<String> SousCat = conn.getNextCategory(nomCat);
+			while(!SousCat.isEmpty()){
+				listCategories(SousCat);
+				System.out.println("Quelle catégorie voulez vous regarder?");
+				nomCat = scan.nextLine();
+				SousCat = conn.getNextCategory(nomCat);
+		}
+		}catch(Exception e){
+			//When there are no cat left we show the products
+			System.out.println("Les produits de cette catégorie sont : \n");
+			LinkedList<String> ProdFromCat = conn.getProductsFromCategory(nomCat);
+			listProductsFromList(ProdFromCat);
+			
+			//On propose de faire une enchère
+			System.out.println("Voulez vous voir un produit en détail? [oui/non] ");
+			String confirmation = scan.next();
+			if(confirmation.equals("oui")){
+				System.out.println("Vous voulez voir quel produit? [Donner l'ID_P] ");
+				int idProd = scan.nextInt();
+				displayProductInfo(conn, idProd, email);
+			}
+			scan.close();
+		}
+		//When there are no cat left we show the products
+		System.out.println("Les produits de cette catégorie sont : \n");
+		LinkedList<String> ProdFromCat = conn.getProductsFromCategory(nomCat);
+		listProductsFromList(ProdFromCat);
+		
+		//On propose de faire une enchère
+		System.out.println("Voulez vous voir un produit en détail? [oui/non] ");
+		String confirmation = scan.next();
+		if(confirmation.equals("oui")){
+			System.out.println("Vous voulez voir quel produit? [Donner l'ID_P] ");
+			int idProd = scan.nextInt();
+			displayProductInfo(conn, idProd, email);
+		}
+		scan.close();
+	}
+
+	public void displayAnyCategories(String email){
+		//Firstly we get the recommended options
+		LinkedList<String> Recommended = conn.getAnyCategory();
+		//Then we print them out
+		listCategories(Recommended);
+		//Then we create a loop to navigate categories
+		System.out.println("Quelle catégorie voulez vous regarder?");
+		Scanner scan = new Scanner(System.in);
+		String nomCat = scan.nextLine();
+		try{
+		LinkedList<String> SousCat = conn.getNextCategory(nomCat);
+		while(!SousCat.isEmpty()){
+			listCategories(SousCat);
+			System.out.println("Quelle catégorie voulez vous regarder?");
+			nomCat = scan.nextLine();
+			SousCat = conn.getNextCategory(nomCat);
+		}
+		}catch(Exception e){
+			//When there are no cat left we show the products
+			System.out.println("Les produits de cette catégorie sont : \n");
+			LinkedList<String> ProdFromCat = conn.getProductsFromCategory(nomCat);
+			listProductsFromList(ProdFromCat);
+			
+			//On propose de voir un pdt en détail
+			System.out.println("Voulez vous voir un produit en détail? [oui/non] ");
+			String confirmation = scan.next();
+			if(confirmation.equals("oui")){
+				System.out.println("Vous voulez voir quel produit? [Donner l'ID_P] ");
+				int idProd = scan.nextInt();
+				displayProductInfo(conn, idProd, email);
+			}
+			scan.close();
+		}
+		
+		//When there are no cat left we show the products
+		System.out.println("Les produits de cette catégorie sont : \n");
+		LinkedList<String> ProdFromCat = conn.getProductsFromCategory(nomCat);
+		listProductsFromList(ProdFromCat);
+		
+		//On propose de voir un pdt en détail
+		System.out.println("Voulez vous voir un produit en détail? [oui/non] ");
+		String confirmation = scan.next();
+		if(confirmation.equals("oui")){
+			System.out.println("Vous voulez voir quel produit? [Donner l'ID_P] ");
+			int idProd = scan.nextInt();
+			displayProductInfo(conn, idProd, email);
+		}
+		scan.close();
+	}
+
 
 }
+
+
 //	guilherme.faccin-huth@grenoble-inp.org

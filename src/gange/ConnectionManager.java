@@ -367,5 +367,109 @@ public class ConnectionManager {
 		}
 
 	}
+	
+	public LinkedList<String> getProductInfo(int idProd){
+		try{
+			//On crée une Liste pour stocker les infos
+			LinkedList<String> infosProduit = new LinkedList<String>();
+			//On recupère les infos basiques du produit
+			String sqlInfos = "SELECT INTITULÉ, PRIX_COURANT, DESCRIPTION FROM PRODUIT WHERE ID_P = "+idProd;
+			ResultSet rsetInfos = exec(sqlInfos);
+			while (rsetInfos.next()){
+				infosProduit.add(rsetInfos.getString("INTITULÉ"));
+				infosProduit.add((String.valueOf(rsetInfos.getFloat("PRIX_COURANT"))));
+				infosProduit.add(rsetInfos.getString("DESCRIPTION"));
+			}
+			//Ensuite on recupère les données
+			String sqlDonnees = "SELECT CARACTERISTIQUE,VALEUR FROM DONNEES WHERE ID_P = "+idProd;
+			ResultSet rsetDonnees = exec(sqlDonnees);
+			while (rsetDonnees.next()){
+				String ligneDeCaract = rsetDonnees.getString("CARACTERISTIQUE") + "="+ rsetDonnees.getString("VALEUR");
+				infosProduit.add(ligneDeCaract);
+			}
+			System.out.print(infosProduit);
+			return infosProduit;
+		}catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
+	public LinkedList<String> getRecommended(String email){
+		try{
+		//On recupère le idUtilisateur
+		int idUtilisateur = retrieveUserID(email);
+		LinkedList<String> Recommends = new LinkedList<String>();
+		//On récupère les catégories recommandées
+		String sqlRecommends = "SELECT id_u, nom_cat, COUNT(nom_cat) as nb FROM PRODUIT INNER JOIN OFFRE on Produit.ID_P = OFFRE.ID_P Where offre.id_u = "+idUtilisateur+" GROUP BY nom_cat, id_u ORDER BY nb DESC, nom_cat";
+		ResultSet rsetInfos = exec(sqlRecommends);
+		while(rsetInfos.next()){
+			Recommends.add(rsetInfos.getString(2));
+		}
+		//On recupere les recommendations generales
+		String sqlRecommends2 = "SELECT nom_cat, COUNT(nom_cat) as nb FROM PRODUIT INNER JOIN OFFRE on Produit.ID_P = OFFRE.ID_P GROUP BY nom_cat ORDER BY nb DESC, nom_cat";
+		ResultSet rsetInfos2 = exec(sqlRecommends2);
+		while(rsetInfos2.next()){
+			Recommends.add(rsetInfos2.getString(1));
+		}
+		return Recommends;
+		}catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public LinkedList<String> getNextCategory(String nomCat){
+		try{
+			LinkedList<String> Categories = new LinkedList<String>();
+			//On récupère les catégories recommandées
+			String sqlCategory = "SELECT NOM_CAT FROM CATEGORIE WHERE CAT_MERE ="+nomCat;
+			ResultSet rsetCategory = exec(sqlCategory);
+			while(rsetCategory.next()){
+				Categories.add(rsetCategory.getString(1));
+			}
+			return Categories;
+		}catch(SQLException e){
+				e.printStackTrace();
+				return null;
+		}
+	}
+
+	public LinkedList<String> getProductsFromCategory(String nomCat){
+		try{
+			LinkedList<String> Products = new LinkedList<String>();
+			//On récupère les catégories recommandées
+			String sqlProduct = "SELECT INTITULÉ, URL_PHOTO, PRIX_COURANT, ID_P FROM PRODUIT WHERE NOM_MERE ="+nomCat;
+			ResultSet rsetProduct = exec(sqlProduct);
+			while(rsetProduct.next()){
+				Products.add(rsetProduct.getString(1));
+				Products.add(rsetProduct.getString(2));
+				Products.add((String.valueOf(rsetProduct.getFloat(3))));
+				Products.add((String.valueOf(rsetProduct.getInt(4))));
+			}
+			return Products;
+		}catch(SQLException e){
+				e.printStackTrace();
+				return null;
+		}
+	}
+
+	public LinkedList<String> getAnyCategory(){
+		try{
+		LinkedList<String> Recommends = new LinkedList<String>();
+		//On recupere les recommendations generales
+		String sqlRecommends2 = "SELECT nom_cat, COUNT(nom_cat) as nb FROM PRODUIT INNER JOIN OFFRE on Produit.ID_P = OFFRE.ID_P GROUP BY nom_cat ORDER BY nb DESC, nom_cat";
+		ResultSet rsetInfos2 = exec(sqlRecommends2);
+		while(rsetInfos2.next()){
+			Recommends.add(rsetInfos2.getString(1));
+		}
+		return Recommends;
+		}catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
 	

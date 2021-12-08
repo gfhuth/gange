@@ -6,7 +6,7 @@ public class TestConnection {
 			// Enregistrement du driver Oracle
 			ConnectionManager c = new ConnectionManager();
 			Menu m = new Menu(c);
-			m.login();
+			m.displayRecommendedCategories("Yanis.Bouhjoura@grenoble-inp.org");
 
 			c.connection.close();
 		} catch (SQLException e) {
