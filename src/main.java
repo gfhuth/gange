@@ -12,16 +12,15 @@ public class main {
 			switch(m.login(user)) {
 			case 1:
 				switch(m.accuiel()) {
-				case 1:
-					System.out.println("oi"); 	//with suggestion
+				case 1: //with recommendation
+					m.displayRecommendedCategories(user.getEmail());
 					break;
-				case 2:
-					System.out.println("thcau"); // without suggestion
+				case 2:// without recommendation
+					m.displayAnyCategories(user.getEmail()); 
 					break;
 				case 3:
 					m.eliminerClient(user.getEmail()); // without suggestion
 					break;
-
 				default: break;
 				}//m.askSuggestion()
 				break;//case 1 m.login(user)

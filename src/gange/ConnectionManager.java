@@ -1,8 +1,8 @@
 package gange;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ConnectionManager {
@@ -126,11 +126,34 @@ public class ConnectionManager {
 	 */
 	public boolean delClient(String email){
 		try{
+			int idUtilisateur = retrieveUserID(email);
+			//On élimine les données
 			String sqlDelete = "DELETE FROM CLIENT WHERE email=?";
 			PreparedStatement stmtDelete = this.connection.prepareStatement(sqlDelete);
 			stmtDelete.setString(1, email);
 			// Execution de la requete
 			stmtDelete.executeUpdate();
+
+			//On recupère un nouveau id
+			String fetchId = "SELECT MAX(id_u) FROM UTILISATEUR";
+			ResultSet rSet = exec(fetchId);
+			int newIdUtilisateur = rSet.next()?rSet.getInt(1)+1:idUtilisateur;
+
+			//On intègre le nouveau id dans utilisateur
+			String sqlAddID = "INSERT INTO UTILISATEUR VALUES(?)";
+			PreparedStatement stmtAddId = this.connection.prepareStatement(sqlAddID);
+			stmtAddId.setInt(1, newIdUtilisateur);
+			stmtAddId.executeUpdate();
+
+			//On modifie les id pour ttes les offres
+			String sqlChangeId = "UPDATE Offre SET id_u = ? WHERE Offre.id_u = ?";
+			PreparedStatement stmtChangeId = this.connection.prepareStatement(sqlChangeId);
+			stmtChangeId.setInt(1, newIdUtilisateur);
+			stmtChangeId.setInt(2, idUtilisateur);
+			stmtChangeId.executeUpdate();
+
+			System.out.println(idUtilisateur);
+			System.out.println(newIdUtilisateur);
 			return true;
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -367,7 +390,7 @@ public class ConnectionManager {
 		}
 
 	}
-	
+
 	public LinkedList<String> getProductInfo(int idProd){
 		try{
 			//On crée une Liste pour stocker les infos
@@ -395,7 +418,6 @@ public class ConnectionManager {
 		}
 	}
 
-	
 	public LinkedList<String> getRecommended(String email){
 		try{
 		//On recupère le idUtilisateur
@@ -411,7 +433,9 @@ public class ConnectionManager {
 		String sqlRecommends2 = "SELECT nom_cat, COUNT(nom_cat) as nb FROM PRODUIT INNER JOIN OFFRE on Produit.ID_P = OFFRE.ID_P GROUP BY nom_cat ORDER BY nb DESC, nom_cat";
 		ResultSet rsetInfos2 = exec(sqlRecommends2);
 		while(rsetInfos2.next()){
+			if(!Recommends.contains(rsetInfos2.getString(1))){
 			Recommends.add(rsetInfos2.getString(1));
+			}
 		}
 		return Recommends;
 		}catch(SQLException e){
@@ -424,7 +448,7 @@ public class ConnectionManager {
 		try{
 			LinkedList<String> Categories = new LinkedList<String>();
 			//On récupère les catégories recommandées
-			String sqlCategory = "SELECT NOM_CAT FROM CATEGORIE WHERE CAT_MERE ="+nomCat;
+			String sqlCategory = "SELECT NOM_CAT FROM CATEGORIE WHERE CAT_MERE ="+"'"+nomCat+"'";
 			ResultSet rsetCategory = exec(sqlCategory);
 			while(rsetCategory.next()){
 				Categories.add(rsetCategory.getString(1));
@@ -440,7 +464,7 @@ public class ConnectionManager {
 		try{
 			LinkedList<String> Products = new LinkedList<String>();
 			//On récupère les catégories recommandées
-			String sqlProduct = "SELECT INTITULÉ, URL_PHOTO, PRIX_COURANT, ID_P FROM PRODUIT WHERE NOM_MERE ="+nomCat;
+			String sqlProduct = "SELECT INTITULÉ, URL_PHOTO, PRIX_COURANT, ID_P FROM PRODUIT WHERE ID_P IN (SELECT id_p FROM OFFRE HAVING COUNT(num_offre) < 5 GROUP BY id_p ) AND NOM_CAT ="+"'"+nomCat+"'";
 			ResultSet rsetProduct = exec(sqlProduct);
 			while(rsetProduct.next()){
 				Products.add(rsetProduct.getString(1));
@@ -471,5 +495,6 @@ public class ConnectionManager {
 		}
 	}
 
-}
+
 	
+}

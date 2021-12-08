@@ -287,7 +287,7 @@ public class Menu {
 		System.out.print("Voulez-vous faire une enchère? oui/non");
 		String confirmation = scan.nextLine();
 		if (confirmation.equals("oui")){
-			this.faireEnchere(c, idProd, email);
+			this.faireEnchere(idProd, email);
 			scan.close();
 		}else{
 			scan.close();
